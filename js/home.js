@@ -43,20 +43,24 @@
   var logoImg = document.querySelector(".logo-img");
   var hi = new Image(); hi.src = "assets/logo-cantina-2k.webp";
 
-  /* Anti-flou : le navigateur rasterise l'élément à sa taille de départ puis étire le bitmap
-     pendant scale(). On rend donc le blason à sa taille MAX (×K) et on l'affiche réduit (scale 1/K) :
-     le bitmap est déjà net à la résolution finale, le zoom ne fait que le "dé-réduire". */
+  /* Anti-flou pendant la plongée : au repos, l'élément est à sa taille naturelle (net, aucun transform).
+     Dès que la plongée démarre (>0), on le passe en "pré-rendu grand" (×K) affiché réduit (1/K),
+     pour que le zoom ne fasse que dé-réduire un bitmap déjà net. Retour à l'état naturel à 0. */
   var K = 3.4;
   var baseSize = logoHero.getBoundingClientRect().width;
-  gsap.set(logoHero, { width: baseSize * K, height: baseSize * K, scale: 1 / K,
-    marginLeft: -(baseSize * K - baseSize) / 2, marginRight: -(baseSize * K - baseSize) / 2,
-    marginTop: -(baseSize * K - baseSize) / 2, marginBottom: -(baseSize * K - baseSize) / 2 });
-  window.addEventListener("resize", function () {
-    var s = Math.min(window.innerWidth * 0.84, 560, window.innerHeight * 0.62);
-    gsap.set(logoHero, { width: s * K, height: s * K,
-      marginLeft: -(s * K - s) / 2, marginRight: -(s * K - s) / 2, marginTop: -(s * K - s) / 2, marginBottom: -(s * K - s) / 2 });
-    baseSize = s;
-  });
+  var bigMode = false;
+  function enterBig() {
+    if (bigMode) return; bigMode = true;
+    baseSize = Math.min(window.innerWidth * 0.84, 560, window.innerHeight * 0.62);
+    var m = -(baseSize * K - baseSize) / 2;
+    gsap.set(logoHero, { width: baseSize * K, height: baseSize * K, marginLeft: m, marginRight: m, marginTop: m, marginBottom: m });
+    if (hi.complete) logoImg.src = hi.src;
+  }
+  function exitBig() {
+    if (!bigMode) return; bigMode = false;
+    gsap.set(logoHero, { clearProps: "width,height,marginLeft,marginRight,marginTop,marginBottom,scale,transform" });
+    logoImg.src = "assets/logo-cantina.webp";
+  }
 
   var dive = gsap.timeline({
     scrollTrigger: {
@@ -67,8 +71,20 @@
       pinSpacing: true,
       scrub: 0.6,
       anticipatePin: 1,
-      onEnter: function () { intro.classList.add("is-diving"); logoHero.classList.add("diving"); backdrop.classList.add("on"); if (hi.complete) logoImg.src = hi.src; },
-      onLeaveBack: function () { intro.classList.remove("is-diving"); logoHero.classList.remove("diving"); backdrop.classList.remove("on"); },
+      onEnter: function () { intro.classList.add("is-diving"); logoHero.classList.add("diving"); backdrop.classList.add("on"); },
+      onLeaveBack: function () { intro.classList.remove("is-diving"); logoHero.classList.remove("diving"); backdrop.classList.remove("on"); exitBig(); },
+      onUpdate: function (self) {
+        var p = self.progress;
+        if (p > 0.002) {
+          enterBig();
+          // zoom : de 1/K (taille visuelle normale) à diveScale(), easing power2.in sur les 62% premiers du pin
+          var t = Math.min(1, p / 0.62); var e = t * t;
+          var s = (1 / K) + (diveScale() - 1 / K) * e;
+          gsap.set(logoHero, { scale: s });
+        } else {
+          exitBig();
+        }
+      },
       onEnterBack: function () { backdrop.classList.add("on"); },
       invalidateOnRefresh: true
     }
@@ -85,7 +101,8 @@
     .to([tagline, indicator], { opacity: 0, y: -16, duration: 0.05, ease: "power2.out" }, 0)
     .set([tagline, indicator], { visibility: "hidden" }, 0.06)
     // 1) plongée : le blason grossit jusqu'à envelopper l'écran
-    .to(logoHero, { scale: function () { return diveScale(); }, ease: "power2.in", duration: 0.62 }, 0)
+    // (le zoom du blason est piloté à la main dans onUpdate — voir plus bas — pour rester net au repos)
+    .to({}, { duration: 0.62 }, 0)
     // 2) une fois « dedans », l'image se fond dans le crème…
     .to(logoHero, { opacity: 0, duration: 0.14, ease: "power1.inOut" }, 0.54)
     // 3) …et le crème se retire (iris) : le hall apparaît par les bords puis plein écran
