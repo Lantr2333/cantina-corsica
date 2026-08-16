@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Charcuterie — A Cantina di Corsica</title>
+  <meta name="description" content="Charcuterie de sanglier corse A Cantina di Corsica : figatellu, coppa, lonzu. Chassé, préparé et séché à la main dans le maquis.">
+  <link rel="icon" href="assets/favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Work+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body data-ambience="assets/audio/feu.mp3" class="experience exp-charcut"
+      data-frames-path="frames-charcut/"
+      data-frames-total="193">
+
+  <!-- Loader -->
+  <div id="loader" role="status" aria-label="Chargement">
+    <div class="loader-brand">A Cantina di Corsica</div>
+    <div class="loader-track"><div id="loader-bar"></div></div>
+    <div id="loader-percent">0%</div>
+  </div>
+
+  <!-- Header -->
+  <header class="site-header on-canvas">
+    <a class="logo" href="index.html">A&nbsp;Cantina&nbsp;di&nbsp;Corsica</a>
+    <nav aria-label="Navigation principale">
+      <a href="charcuterie.html" class="active">Charcuterie</a>
+      <a href="fromage.html">Fromage</a>
+      <a href="notre-histoire.html">Notre&nbsp;histoire</a>
+    </nav>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero-standalone has-photo" id="hero">
+    <div class="hero-bg" aria-hidden="true" style="background-image: url('assets/hero-charcut.jpg')"></div>
+    <div class="hero-veil" aria-hidden="true"></div>
+    <span class="section-label">Univers 01</span>
+    <h1 class="hero-heading" aria-label="Charcuterie">
+      <span class="word">Charcuterie</span>
+    </h1>
+    <p class="hero-tagline">Sanglier du maquis. Chassé, préparé et séché par une seule paire de mains.</p>
+    <div class="scroll-indicator" aria-hidden="true">
+      <span>Faites défiler</span>
+      <svg width="16" height="24" viewBox="0 0 16 24" fill="none"><path d="M8 2v18m0 0l-6-6m6 6l6-6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </div>
+  </section>
+
+  <!-- Canvas (fixed) -->
+  <div class="canvas-wrap" id="canvas-wrap" aria-hidden="true">
+    <canvas id="canvas"></canvas>
+  </div>
+
+  <!-- Dark overlay for stats -->
+  <div id="dark-overlay" aria-hidden="true"></div>
+
+  <!-- Marquee -->
+  <div class="marquee-wrap" id="marquee" data-scroll-speed="-30" data-in="0.30" data-out="0.52" aria-hidden="true">
+    <div class="marquee-text">Figatellu&nbsp;—&nbsp;Coppa&nbsp;—&nbsp;Lonzu&nbsp;—&nbsp;Figatellu&nbsp;—&nbsp;Coppa&nbsp;—&nbsp;Lonzu&nbsp;—</div>
+  </div>
+
+  <!-- Scroll container -->
+  <div id="scroll-container">
+
+    <section class="scroll-section section-content align-left"
+             data-enter="12" data-leave="28" data-animation="slide-left">
+      <div class="section-inner">
+        <span class="section-label">001 / Le maquis</span>
+        <h2 class="section-heading">Séché à l'air du village</h2>
+        <p class="section-body">Nos pièces sèchent lentement, au rythme du maquis. Pas de chambre froide, pas de raccourci — le temps fait son œuvre.</p>
+      </div>
+    </section>
+
+    <section class="scroll-section section-content align-right"
+             data-enter="32" data-leave="48" data-animation="slide-right">
+      <div class="section-inner">
+        <span class="section-label">002 / La chasse</span>
+        <h2 class="section-heading">Sanglier chassé, jamais élevé</h2>
+        <p class="section-body">Nos sangliers vivent libres dans la montagne corse. Chaque pièce est chassée, préparée et affinée par nos soins.</p>
+      </div>
+    </section>
+
+    <section class="scroll-section section-stats"
+             data-enter="54" data-leave="70" data-animation="stagger-up">
+      <div class="stats-grid">
+        <div class="stat">
+          <span class="stat-row"><span class="stat-number" data-value="100" data-decimals="0">0</span><span class="stat-suffix">%</span></span>
+          <span class="stat-label">Fait maison</span>
+        </div>
+        <div class="stat">
+          <span class="stat-row"><span class="stat-number" data-value="12" data-decimals="0">0</span><span class="stat-suffix">mois</span></span>
+          <span class="stat-label">De séchage naturel</span>
+        </div>
+        <div class="stat">
+          <span class="stat-row"><span class="stat-number" data-value="0" data-decimals="0">0</span><span class="stat-suffix"></span></span>
+          <span class="stat-label">Additif ni conservateur</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="scroll-section section-content align-left"
+             data-enter="74" data-leave="86" data-animation="clip-reveal">
+      <div class="section-inner">
+        <span class="section-label">003 / La découpe</span>
+        <h2 class="section-heading">Tranché fin, servi simplement</h2>
+        <p class="section-body">Un couteau, une planche, des amis. La charcuterie corse ne demande rien de plus.</p>
+      </div>
+    </section>
+
+    <section class="scroll-section section-cta" data-persist="true"
+             data-enter="90" data-leave="100" data-animation="scale-up">
+      <div class="section-inner">
+        <span class="section-label">A Cantina di Corsica</span>
+        <h2 class="section-heading">Nos pièces</h2>
+        <p class="section-body">Chaque pièce est unique — découvrez ce qui sort du séchoir.</p>
+        <a class="cta-button" href="#produits" data-scroll-to>Voir les produits</a>
+      </div>
+    </section>
+
+  </div>
+
+  <!-- Produits -->
+  <main class="products-zone" id="produits">
+    <span class="section-label">La sélection</span>
+    <h2 class="products-heading">Charcuterie de sanglier</h2>
+    <p class="products-intro">Produits d'exemple — la liste réelle, les poids et les prix seront ceux du producteur.</p>
+    <div class="product-grid">
+      <article class="product-card">
+        <img src="assets/still-charcut-slices.jpg" alt="Saucisson de sanglier tranché">
+        <div class="card-body">
+          <h3>Saucisson de sanglier</h3>
+          <p>Maigre de sanglier et gras noble, séché douze mois. Le goût profond du maquis.</p>
+          <span class="badge">Pièce ± 400 g</span>
+        </div>
+      </article>
+      <article class="product-card">
+        <img src="assets/hero-photo.jpg" alt="Coppa corse au séchoir">
+        <div class="card-body">
+          <h3>Coppa</h3>
+          <p>Échine affinée et poivrée, fondante à la découpe. L'incontournable des planches.</p>
+          <span class="badge">Pièce ± 800 g</span>
+        </div>
+      </article>
+      <article class="product-card">
+        <img src="assets/still-charcut-float.jpg" alt="Figatellu corse">
+        <div class="card-body">
+          <h3>Figatellu</h3>
+          <p>Le fier emblème corse, au foie et à la viande de sanglier. À griller ou tel quel.</p>
+          <span class="badge">Saison — hiver</span>
+        </div>
+      </article>
+      <article class="product-card">
+        <img src="assets/sechoir.jpg" alt="Lonzu au séchoir">
+        <div class="card-body">
+          <h3>Lonzu</h3>
+          <p>Filet maigre, sel, poivre et patience. Tranche fine, goût délicat.</p>
+          <span class="badge">Pièce ± 600 g</span>
+        </div>
+      </article>
+    </div>
+
+    <div class="contact-block" id="contact">
+      <h2>Commander</h2>
+      <p>Boutique vitrine — commandes et renseignements en direct. Réponse rapide, envoi soigné depuis la Corse.</p>
+      <a class="cta-button" href="notre-histoire.html#contact">Nous contacter</a>
+    </div>
+
+    <a class="next-universe" href="fromage.html">
+      <span class="portal-label">Continuer le voyage</span>
+      <span class="next-title">L'univers Fromage →</span>
+    </a>
+  </main>
+
+  <footer class="site-footer">
+    <span>© A Cantina di Corsica — Corse</span>
+    <span class="footer-note">Charcuterie de sanglier &amp; fromage de brebis, faits maison</span>
+  </footer>
+
+  <script src="js/vendor/lenis.min.js"></script>
+  <script src="js/vendor/gsap.min.js"></script>
+  <script src="js/vendor/ScrollTrigger.min.js"></script>
+  <script src="js/experience.js"></script>
+  <script src="js/ambience.js"></script>
+</body>
+</html>

@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Fromage — A Cantina di Corsica</title>
+  <meta name="description" content="Fromage de brebis corse A Cantina di Corsica : tomme affinée sous la fougère, lait cru du maquis, fait maison.">
+  <link rel="icon" href="assets/favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Work+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body data-ambience="assets/audio/cigales.mp3" class="experience exp-fromage"
+      data-frames-path="frames-fromage/"
+      data-frames-total="193">
+
+  <!-- Loader -->
+  <div id="loader" role="status" aria-label="Chargement">
+    <div class="loader-brand">A Cantina di Corsica</div>
+    <div class="loader-track"><div id="loader-bar"></div></div>
+    <div id="loader-percent">0%</div>
+  </div>
+
+  <!-- Header -->
+  <header class="site-header on-canvas">
+    <a class="logo" href="index.html">A&nbsp;Cantina&nbsp;di&nbsp;Corsica</a>
+    <nav aria-label="Navigation principale">
+      <a href="charcuterie.html">Charcuterie</a>
+      <a href="fromage.html" class="active">Fromage</a>
+      <a href="notre-histoire.html">Notre&nbsp;histoire</a>
+    </nav>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero-standalone has-photo hero-dark" id="hero">
+    <div class="hero-bg" aria-hidden="true" style="background-image: url('assets/hero-fromage.jpg')"></div>
+    <div class="hero-veil" aria-hidden="true"></div>
+    <span class="section-label">Univers 02</span>
+    <h1 class="hero-heading" aria-label="Fromage">
+      <span class="word">Fromage</span>
+    </h1>
+    <p class="hero-tagline">Brebis corse, lait cru, affiné sous la fougère du maquis.</p>
+    <div class="scroll-indicator" aria-hidden="true">
+      <span>Faites défiler</span>
+      <svg width="16" height="24" viewBox="0 0 16 24" fill="none"><path d="M8 2v18m0 0l-6-6m6 6l6-6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </div>
+  </section>
+
+  <!-- Canvas (fixed) -->
+  <div class="canvas-wrap" id="canvas-wrap" aria-hidden="true">
+    <canvas id="canvas"></canvas>
+  </div>
+
+  <!-- Dark overlay for stats -->
+  <div id="dark-overlay" aria-hidden="true"></div>
+
+  <!-- Marquee -->
+  <div class="marquee-wrap" id="marquee" data-scroll-speed="-30" data-in="0.30" data-out="0.52" aria-hidden="true">
+    <div class="marquee-text">Tomme&nbsp;—&nbsp;Brebis&nbsp;—&nbsp;Fougère&nbsp;—&nbsp;Tomme&nbsp;—&nbsp;Brebis&nbsp;—&nbsp;Fougère&nbsp;—</div>
+  </div>
+
+  <!-- Scroll container -->
+  <div id="scroll-container">
+
+    <section class="scroll-section section-content align-left"
+             data-enter="12" data-leave="28" data-animation="slide-left">
+      <div class="section-inner">
+        <span class="section-label">001 / La brebis</span>
+        <h2 class="section-heading">Le lait du maquis</h2>
+        <p class="section-body">Des brebis corses qui pâturent en liberté. Un lait cru entier, ramassé et travaillé le jour même.</p>
+      </div>
+    </section>
+
+    <section class="scroll-section section-content align-right ink"
+             data-enter="32" data-leave="48" data-animation="slide-right">
+      <div class="section-inner">
+        <span class="section-label">002 / L'affinage</span>
+        <h2 class="section-heading">Affiné sous la fougère</h2>
+        <p class="section-body">La fougère du maquis posée sur la croûte signe chaque tomme et parfume l'affinage — la signature de la maison.</p>
+      </div>
+    </section>
+
+    <section class="scroll-section section-stats"
+             data-enter="54" data-leave="70" data-animation="stagger-up">
+      <div class="stats-grid">
+        <div class="stat">
+          <span class="stat-row"><span class="stat-number" data-value="100" data-decimals="0">0</span><span class="stat-suffix">%</span></span>
+          <span class="stat-label">Lait cru de brebis</span>
+        </div>
+        <div class="stat">
+          <span class="stat-row"><span class="stat-number" data-value="90" data-decimals="0">0</span><span class="stat-suffix">jours</span></span>
+          <span class="stat-label">D'affinage minimum</span>
+        </div>
+        <div class="stat">
+          <span class="stat-row"><span class="stat-number" data-value="0" data-decimals="0">0</span><span class="stat-suffix"></span></span>
+          <span class="stat-label">Additif ni conservateur</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="scroll-section section-content align-left ink"
+             data-enter="74" data-leave="86" data-animation="clip-reveal">
+      <div class="section-inner">
+        <span class="section-label">003 / La dégustation</span>
+        <h2 class="section-heading">Cœur crémeux, croûte fleurie</h2>
+        <p class="section-body">Une pâte souple qui s'ouvre en tranches généreuses. Avec un peu de confiture de figue, c'est la Corse entière.</p>
+      </div>
+    </section>
+
+    <section class="scroll-section section-cta" data-persist="true"
+             data-enter="90" data-leave="100" data-animation="scale-up">
+      <div class="section-inner">
+        <span class="section-label">A Cantina di Corsica</span>
+        <h2 class="section-heading">Nos tommes</h2>
+        <p class="section-body">Affinées au village, découpées à la demande.</p>
+        <a class="cta-button" href="#produits" data-scroll-to>Voir les produits</a>
+      </div>
+    </section>
+
+  </div>
+
+  <!-- Produits -->
+  <main class="products-zone" id="produits">
+    <span class="section-label">La sélection</span>
+    <h2 class="products-heading">Fromage de brebis</h2>
+    <p class="products-intro">Produits d'exemple — la liste réelle, les poids et les prix seront ceux du producteur.</p>
+    <div class="product-grid">
+      <article class="product-card">
+        <img src="assets/brebis-ref.png" alt="Tomme de brebis à la fougère">
+        <div class="card-body">
+          <h3>Tomme à la fougère</h3>
+          <p>Notre signature : croûte naturelle, fougère du maquis, cœur souple et lacté.</p>
+          <span class="badge">Pièce ± 1,2 kg</span>
+        </div>
+      </article>
+      <article class="product-card">
+        <img src="assets/still-fromage-wedge.jpg" alt="Quartier de tomme de brebis">
+        <div class="card-body">
+          <h3>Tomme affinée</h3>
+          <p>Six mois d'affinage pour une pâte plus dense et des arômes puissants.</p>
+          <span class="badge">Au quartier ou entière</span>
+        </div>
+      </article>
+      <article class="product-card">
+        <img src="assets/still-fromage-final.jpg" alt="Tranches de tomme de brebis">
+        <div class="card-body">
+          <h3>Brocciu</h3>
+          <p>Frais, doux, incontournable — le fromage corse par excellence, en saison.</p>
+          <span class="badge">Saison — hiver &amp; printemps</span>
+        </div>
+      </article>
+    </div>
+
+    <div class="contact-block" id="contact">
+      <h2>Commander</h2>
+      <p>Boutique vitrine — commandes et renseignements en direct. Réponse rapide, envoi soigné depuis la Corse.</p>
+      <a class="cta-button" href="notre-histoire.html#contact">Nous contacter</a>
+    </div>
+
+    <a class="next-universe" href="charcuterie.html">
+      <span class="portal-label">Continuer le voyage</span>
+      <span class="next-title">L'univers Charcuterie →</span>
+    </a>
+  </main>
+
+  <footer class="site-footer">
+    <span>© A Cantina di Corsica — Corse</span>
+    <span class="footer-note">Charcuterie de sanglier &amp; fromage de brebis, faits maison</span>
+  </footer>
+
+  <script src="js/vendor/lenis.min.js"></script>
+  <script src="js/vendor/gsap.min.js"></script>
+  <script src="js/vendor/ScrollTrigger.min.js"></script>
+  <script src="js/experience.js"></script>
+  <script src="js/ambience.js"></script>
+</body>
+</html>
