@@ -42,13 +42,39 @@
     requestAnimationFrame(step);
   }
 
-  btn.addEventListener("click", function () {
+  function ensureAudio() {
     if (!audio) {
       audio = new Audio(src);
       audio.loop = true;
       audio.volume = 0;
+      audio.preload = "auto";
     }
+  }
+
+  /* Son "ON par défaut" : les navigateurs interdisent l'autoplay audio,
+     donc on démarre au PREMIER geste (tap, scroll, touche) — sans que
+     l'utilisateur ait à trouver le bouton. Il peut couper ensuite. */
+  var muted = localStorage.getItem("cantina-sound") === "off";
+  function startOnFirstGesture() {
+    if (playing || muted) return;
+    ensureAudio();
+    playing = true;
+    btn.classList.add("is-on");
+    btn.setAttribute("aria-pressed", "true");
+    btn.setAttribute("aria-label", "Couper le son d'ambiance");
+    audio.play().then(function () { fadeTo(0.35, 1400); }).catch(function () {
+      playing = false; btn.classList.remove("is-on"); btn.setAttribute("aria-pressed", "false");
+    });
+  }
+  ["pointerdown", "touchstart", "keydown", "wheel", "scroll"].forEach(function (ev) {
+    window.addEventListener(ev, startOnFirstGesture, { once: true, passive: true });
+  });
+
+  btn.addEventListener("click", function () {
+    ensureAudio();
     playing = !playing;
+    muted = !playing;                       // désarme le démarrage auto si on coupe
+    localStorage.setItem("cantina-sound", playing ? "on" : "off");
     btn.classList.toggle("is-on", playing);
     btn.setAttribute("aria-pressed", String(playing));
     btn.setAttribute("aria-label", playing ? "Couper le son d'ambiance" : "Activer le son d'ambiance");
