@@ -28,10 +28,39 @@
     <div class="intro-inner">
       <h1 class="visually-hidden">A Cantina di Corsica — Charcuteries &amp; fromages corses</h1>
       <div class="logo-hero" role="img" aria-label="Logo A Cantina di Corsica — produits du terroir corse">
-        <video class="logo-video" autoplay muted loop playsinline preload="auto" poster="assets/logo-cantina.webp">
-          <source src="assets/logo-loop.webm" type="video/webm">
-          <source src="assets/logo-loop.mp4" type="video/mp4">
-        </video>
+        <img class="logo-img" src="assets/logo-cantina.webp" alt="" decoding="async">
+        <!-- Couches d'animation (le logo lui-même ne bouge jamais) -->
+        <svg class="logo-fx" viewBox="0 0 1000 1000" aria-hidden="true">
+          <defs>
+            <radialGradient id="sunGlow" cx="0.5" cy="0.5" r="0.5">
+              <stop offset="0"   stop-color="#ffe9a8" stop-opacity=".85"/>
+              <stop offset=".45" stop-color="#ffb347" stop-opacity=".35"/>
+              <stop offset="1"   stop-color="#ffb347" stop-opacity="0"/>
+            </radialGradient>
+            <linearGradient id="sweep" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0"   stop-color="#fff6d6" stop-opacity="0"/>
+              <stop offset=".5"  stop-color="#fff6d6" stop-opacity=".8"/>
+              <stop offset="1"   stop-color="#fff6d6" stop-opacity="0"/>
+            </linearGradient>
+            <linearGradient id="ringShine" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0"   stop-color="#fff2c2" stop-opacity="0"/>
+              <stop offset=".5"  stop-color="#fff2c2" stop-opacity=".9"/>
+              <stop offset="1"   stop-color="#fff2c2" stop-opacity="0"/>
+            </linearGradient>
+            <clipPath id="plateClip"><path d="M 95 640 Q 500 600 905 640 L 900 880 Q 500 915 100 880 Z"/></clipPath>
+            <clipPath id="badgeClip"><circle cx="500" cy="500" r="494"/></clipPath>
+          </defs>
+          <g clip-path="url(#badgeClip)">
+            <!-- 1. lueur du soleil couchant qui respire -->
+            <circle class="fx-sun" cx="232" cy="238" r="190" fill="url(#sunGlow)"/>
+            <!-- 2. rayon de lumière qui balaie la plaque du nom -->
+            <g clip-path="url(#plateClip)">
+              <rect class="fx-sweep" x="-260" y="590" width="240" height="330" fill="url(#sweep)"/>
+            </g>
+            <!-- 3. scintillement du liseré doré -->
+            <circle class="fx-ring" cx="500" cy="500" r="489" fill="none" stroke="url(#ringShine)" stroke-width="10"/>
+          </g>
+        </svg>
       </div>
       <p class="intro-tagline">Faits maison, de la chasse à votre table.</p>
     </div>

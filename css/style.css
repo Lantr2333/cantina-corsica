@@ -232,20 +232,30 @@ body {
   width: min(84vw, 560px, 62vh); height: min(84vw, 560px, 62vh);
   flex: 0 0 auto; display: block; position: relative;
   border-radius: 50%; overflow: hidden;
-  /* léger rognage (99.2%) pour ne jamais voir le liseré blanc du bord de la vidéo */
-  clip-path: circle(49.6% at 50% 50%);
   filter: drop-shadow(0 18px 40px rgba(60, 40, 15, .18));
-  transform: translateZ(0); /* couche GPU dédiée : la vidéo reste nette */
 }
-.logo-video {
-  width: 100%; height: 100%; object-fit: cover; display: block;
-  background: url("../assets/logo-cantina.webp") center / cover no-repeat;
+.logo-img { width: 100%; height: 100%; display: block; object-fit: cover; }
+.logo-fx  { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; mix-blend-mode: screen; }
+
+/* 1. soleil : respiration lente */
+.fx-sun { transform-origin: 232px 238px; transform-box: view-box; animation: sunBreathe 6s ease-in-out infinite; }
+@keyframes sunBreathe {
+  0%, 100% { opacity: .45; transform: scale(.9); }
+  50%      { opacity: 1;   transform: scale(1.15); }
 }
-@keyframes breathe {
-  0%, 100% { transform: scale(1) translateY(0); }
-  50%      { transform: scale(1.025) translateY(-4px); }
+/* 2. balayage lumineux sur la plaque, une fois toutes les 9 s */
+.fx-sweep { transform-box: view-box; transform-origin: 0 0; animation: plateSweep 9s cubic-bezier(.4,0,.2,1) infinite; }
+@keyframes plateSweep {
+  0%, 62% { transform: translateX(0) skewX(-18deg); opacity: 0; }
+  64%     { opacity: 1; }
+  84%     { transform: translateX(1500px) skewX(-18deg); opacity: 1; }
+  86%,100%{ transform: translateX(1500px) skewX(-18deg); opacity: 0; }
 }
-@media (prefers-reduced-motion: reduce) { .logo-hero { animation: none; } }
+/* 3. liseré doré : reflet qui tourne lentement */
+.fx-ring { transform-origin: 500px 500px; transform-box: view-box; animation: ringTurn 14s linear infinite; opacity: .9; }
+@keyframes ringTurn { to { transform: rotate(360deg); } }
+
+@media (prefers-reduced-motion: reduce) { .fx-sun, .fx-sweep, .fx-ring { animation: none; } .fx-sweep { opacity: 0; } }
 .visually-hidden {
   position: absolute; width: 1px; height: 1px; overflow: hidden;
   clip: rect(0 0 0 0); white-space: nowrap;
