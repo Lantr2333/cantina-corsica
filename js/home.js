@@ -35,11 +35,28 @@
   var indicator = document.querySelector(".intro-panel .scroll-indicator");
 
   function diveScale() {
-    // facteur pour que le cercle du logo couvre toute la diagonale de l'écran
-    var r = logoHero.getBoundingClientRect();
+    // scale final (relatif à l'élément ×K) : couvrir la diagonale de l'écran, plafonné à 1 (= taille native nette)
     var d = Math.hypot(window.innerWidth, window.innerHeight);
-    return (d / Math.max(1, r.width)) * 1.6;
+    return Math.min(1, (d / Math.max(1, baseSize)) * 1.05 / K);
   }
+  // pendant la plongée, on affiche la version 2000px (nette une fois agrandie)
+  var logoImg = document.querySelector(".logo-img");
+  var hi = new Image(); hi.src = "assets/logo-cantina-2k.webp";
+
+  /* Anti-flou : le navigateur rasterise l'élément à sa taille de départ puis étire le bitmap
+     pendant scale(). On rend donc le blason à sa taille MAX (×K) et on l'affiche réduit (scale 1/K) :
+     le bitmap est déjà net à la résolution finale, le zoom ne fait que le "dé-réduire". */
+  var K = 3.4;
+  var baseSize = logoHero.getBoundingClientRect().width;
+  gsap.set(logoHero, { width: baseSize * K, height: baseSize * K, scale: 1 / K,
+    marginLeft: -(baseSize * K - baseSize) / 2, marginRight: -(baseSize * K - baseSize) / 2,
+    marginTop: -(baseSize * K - baseSize) / 2, marginBottom: -(baseSize * K - baseSize) / 2 });
+  window.addEventListener("resize", function () {
+    var s = Math.min(window.innerWidth * 0.84, 560, window.innerHeight * 0.62);
+    gsap.set(logoHero, { width: s * K, height: s * K,
+      marginLeft: -(s * K - s) / 2, marginRight: -(s * K - s) / 2, marginTop: -(s * K - s) / 2, marginBottom: -(s * K - s) / 2 });
+    baseSize = s;
+  });
 
   var dive = gsap.timeline({
     scrollTrigger: {
@@ -50,7 +67,7 @@
       pinSpacing: true,
       scrub: 0.6,
       anticipatePin: 1,
-      onEnter: function () { intro.classList.add("is-diving"); logoHero.classList.add("diving"); backdrop.classList.add("on"); },
+      onEnter: function () { intro.classList.add("is-diving"); logoHero.classList.add("diving"); backdrop.classList.add("on"); if (hi.complete) logoImg.src = hi.src; },
       onLeaveBack: function () { intro.classList.remove("is-diving"); logoHero.classList.remove("diving"); backdrop.classList.remove("on"); },
       onEnterBack: function () { backdrop.classList.add("on"); },
       invalidateOnRefresh: true
@@ -68,11 +85,11 @@
     .to([tagline, indicator], { opacity: 0, y: -16, duration: 0.05, ease: "power2.out" }, 0)
     .set([tagline, indicator], { visibility: "hidden" }, 0.06)
     // 1) plongée : le blason grossit jusqu'à envelopper l'écran
-    .to(logoHero, { scale: function () { return diveScale(); }, ease: "power2.in", duration: 0.66 }, 0)
+    .to(logoHero, { scale: function () { return diveScale(); }, ease: "power2.in", duration: 0.62 }, 0)
     // 2) une fois « dedans », l'image se fond dans le crème…
-    .to(logoHero, { opacity: 0, duration: 0.14, ease: "power1.inOut" }, 0.56)
+    .to(logoHero, { opacity: 0, duration: 0.14, ease: "power1.inOut" }, 0.54)
     // 3) …et le crème se retire (iris) : le hall apparaît par les bords puis plein écran
-    .fromTo(intro, { "--iris": "150%" }, { "--iris": "0%", ease: "power3.inOut", duration: 0.30 }, 0.70);
+    .fromTo(intro, { "--iris": "150%" }, { "--iris": "0%", ease: "power3.inOut", duration: 0.32 }, 0.68);
 
   // le backdrop s'efface seulement quand le vrai hall couvre l'écran (raccord invisible)
   ScrollTrigger.create({

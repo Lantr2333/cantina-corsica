@@ -223,7 +223,7 @@ body {
 }
 /* Pendant la plongée : le hall est déjà rendu dessous, révélé par un cercle qui s'ouvre */
 .intro-panel.is-diving { clip-path: circle(var(--iris, 150%) at 50% 50%); }
-.logo-hero { will-change: transform, opacity; transform-origin: 50% 50%; }
+.logo-hero { will-change: transform, opacity; transform-origin: 50% 50%; backface-visibility: hidden; }
 .logo-hero.diving .logo-fx { display: none; } /* pas de reflets pendant le zoom : plus net, plus léger */
 .intro-inner {
   display: flex; flex-direction: column; align-items: center;
