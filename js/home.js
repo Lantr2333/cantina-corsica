@@ -92,9 +92,7 @@
   // décor fixe (aperçu du hall) visible à travers l'iris pendant la plongée
   var backdrop = document.createElement("div");
   backdrop.className = "dive-backdrop"; backdrop.setAttribute("aria-hidden", "true");
-  backdrop.innerHTML =
-    '<span class="bd-charcut"><b><i>Univers 01</i>Charcuterie</b></span>' +
-    '<span class="bd-fromage"><b><i>Univers 02</i>Fromage</b></span>';
+  backdrop.innerHTML = document.querySelector(".hall").innerHTML; // copie exacte (mêmes visuels, textes, boutons)
   document.body.appendChild(backdrop);
 
   dive
@@ -114,18 +112,6 @@
     trigger: ".hall", start: "top top",
     onEnter: function () { backdrop.classList.remove("on"); },
     onLeaveBack: function () { backdrop.classList.add("on"); }
-  });
-
-  /* ---------- Hall : portails ---------- */
-  gsap.utils.toArray(".portal").forEach(function (portal, i) {
-    gsap.from(portal.querySelector(".portal-inner"), {
-      y: 70, opacity: 0, duration: 1.0, delay: i * 0.12, ease: "power3.out",
-      scrollTrigger: { trigger: ".hall", start: "top 40%" }
-    });
-    gsap.from(portal.querySelector(".portal-bg"), {
-      scale: 1.12, duration: 1.6, delay: i * 0.12, ease: "power2.out",
-      scrollTrigger: { trigger: ".hall", start: "top 40%" }
-    });
   });
 
   /* ---------- Bandeau histoire ---------- */

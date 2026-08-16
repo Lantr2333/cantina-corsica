@@ -286,25 +286,15 @@ body {
 
 /* ---------- Accueil : hall des univers ---------- */
 .hall { display: flex; min-height: 100vh; min-height: 100svh; position: relative; z-index: 1; }
+/* le hall se glisse sous l'intro épinglée : à la fin du pin il est déjà à l'écran (raccord exact avec le décor) */
+.home .hall { margin-top: -100vh; margin-top: -100svh; }
 /* Décor fixe derrière l'intro pendant la plongée : aperçu du hall (mêmes visuels), révélé par l'iris */
 .dive-backdrop {
   position: fixed; inset: 0; z-index: 2; display: flex; pointer-events: none;
   opacity: 0; transition: opacity .2s;
 }
 .dive-backdrop.on { opacity: 1; }
-.dive-backdrop span { flex: 1; background-size: cover; background-position: center; position: relative; }
-.dive-backdrop span::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(15,10,6,.5), rgba(15,10,6,.24) 45%, rgba(15,10,6,.62)); }
-.dive-backdrop span b {
-  position: absolute; inset: 0; z-index: 1; display: flex; flex-direction: column; align-items: center; justify-content: center;
-  color: #fff; font-family: var(--font-display); font-weight: 700; font-size: clamp(2.6rem, 6.5vw, 5.4rem); line-height: 1;
-  text-shadow: 0 4px 40px rgba(0,0,0,.45);
-}
-.dive-backdrop span b i {
-  font-style: normal; font-family: var(--font-body); font-weight: 600; font-size: .72rem;
-  letter-spacing: .3em; text-transform: uppercase; color: var(--accent-soft); margin-bottom: .65rem;
-}
-.dive-backdrop .bd-charcut { background-image: url("../assets/hero-charcut.jpg"); }
-.dive-backdrop .bd-fromage { background-image: url("../assets/portal-fromage.jpg"); }
+.dive-backdrop .portal { pointer-events: none; }
 @media (max-width: 767px) { .dive-backdrop { flex-direction: column; } }
 .portal {
   position: relative; flex: 1; display: flex; align-items: center; justify-content: center;
@@ -458,8 +448,10 @@ body {
     background: linear-gradient(180deg, rgba(253,249,242,0) 0%, rgba(253,249,242,.82) 18%, rgba(253,249,242,.82) 82%, rgba(253,249,242,0) 100%);
   }
 
-  .hall { flex-direction: column; }
-  .portal { min-height: 78svh; }
+  .hall { flex-direction: column; height: 100vh; height: 100svh; min-height: 0; }
+  .portal { min-height: 0; flex: 1 1 50%; }
+  .portal-title { font-size: clamp(2.2rem, 10vw, 3.4rem); }
+  .portal-cta { margin-top: .7rem; padding: .65rem 1.5rem; }
   .crest { width: min(88vw, 420px); }
 }
 
