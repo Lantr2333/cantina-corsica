@@ -62,6 +62,22 @@
     logoImg.src = "assets/logo-cantina.webp";
   }
 
+  // Aimant de fin de plongée : une fois les univers atteints, un léger scroll inverse ne laisse pas
+  // l'iris à moitié fermé — on renvoie doucement soit sur les univers, soit (si on remonte franchement) vers le logo.
+  var reachedEnd = false, snapping = false;
+  function snapCheck(self) {
+    var p = self.progress;
+    if (p >= 0.995) { reachedEnd = true; return; }
+    if (!reachedEnd || snapping) return;
+    if (p > 0.55 && p < 0.995 && self.direction < 0) {
+      snapping = true;
+      var target = self.end; // bas du pin = univers plein écran
+      lenis.scrollTo(target, { duration: 0.6, onComplete: function () { snapping = false; } });
+    } else if (p <= 0.55) {
+      reachedEnd = false; // remontée franche : on laisse ressortir vers le logo
+    }
+  }
+
   var dive = gsap.timeline({
     scrollTrigger: {
       trigger: intro,
@@ -75,6 +91,10 @@
       onLeaveBack: function () { intro.classList.remove("is-diving"); logoHero.classList.remove("diving"); backdrop.classList.remove("on"); exitBig(); },
       onUpdate: function (self) {
         var p = self.progress;
+        // univers visibles à travers l'iris → cliquables (évite l'état "on voit mais on ne peut pas appuyer")
+        backdrop.classList.toggle("clickable", p > 0.62);
+        // aimant : si on remonte un peu après être arrivé sur les univers, on y revient (pas de boule au milieu)
+        snapCheck(self);
         if (p > 0.002) {
           enterBig();
           // zoom : de 1/K (taille visuelle normale) à diveScale(), easing power2.in sur les 62% premiers du pin

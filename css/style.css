@@ -294,7 +294,9 @@ body {
   opacity: 0; transition: opacity .2s;
 }
 .dive-backdrop.on { opacity: 1; }
-.dive-backdrop .portal { pointer-events: none; }
+/* dès que l'iris est ouvert (univers visibles), les portails du décor sont cliquables */
+.dive-backdrop.on.clickable { pointer-events: auto; z-index: 4; }
+.dive-backdrop.on.clickable .portal { pointer-events: auto; }
 @media (max-width: 767px) { .dive-backdrop { flex-direction: column; } }
 .portal {
   position: relative; flex: 1; display: flex; align-items: center; justify-content: center;
