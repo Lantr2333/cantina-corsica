@@ -66,7 +66,7 @@
     scrollTrigger: {
       trigger: intro,
       start: "top top",
-      end: "+=220%",
+      end: "+=180%",
       pin: true,
       pinSpacing: true,
       scrub: 0.6,
@@ -103,10 +103,11 @@
     // 1) plongée : le blason grossit jusqu'à envelopper l'écran
     // (le zoom du blason est piloté à la main dans onUpdate — voir plus bas — pour rester net au repos)
     .to({}, { duration: 0.62 }, 0)
-    // 2) une fois « dedans », l'image se fond dans le crème…
-    .to(logoHero, { opacity: 0, duration: 0.14, ease: "power1.inOut" }, 0.54)
-    // 3) …et le crème se retire (iris) : le hall apparaît par les bords puis plein écran
-    .fromTo(intro, { "--iris": "150%" }, { "--iris": "0%", ease: "power3.inOut", duration: 0.32 }, 0.68);
+    // 2) l'iris s'ouvre PENDANT la fin de la plongée (pas de temps mort crème) : les univers apparaissent
+    //    à travers le blason qui finit de grossir…
+    .fromTo(intro, { "--iris": "150%" }, { "--iris": "0%", ease: "power2.inOut", duration: 0.34 }, 0.50)
+    // 3) …et le blason se fond en dernier, rapidement
+    .to(logoHero, { opacity: 0, duration: 0.12, ease: "power1.in" }, 0.60);
 
   // le backdrop s'efface seulement quand le vrai hall couvre l'écran (raccord invisible)
   ScrollTrigger.create({
