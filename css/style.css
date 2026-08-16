@@ -236,6 +236,7 @@ body {
 }
 .logo-img { width: 100%; height: 100%; display: block; object-fit: cover; }
 .logo-fx  { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; mix-blend-mode: screen; }
+.logo-olive { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
 
 /* 1. soleil : respiration lente */
 .fx-sun { transform-origin: 232px 238px; transform-box: view-box; animation: sunBreathe 6s ease-in-out infinite; }
@@ -251,11 +252,18 @@ body {
   84%     { transform: translateX(1500px) skewX(-18deg); opacity: 1; }
   86%,100%{ transform: translateX(1500px) skewX(-18deg); opacity: 0; }
 }
+/* 4. feuilles d'olivier : balancement très léger, deux rameaux déphasés */
+.fx-olive { mix-blend-mode: normal; transform-box: view-box; }
+.fx-olive-r { transform-origin: 940px 120px; animation: oliveSwayR 5.5s ease-in-out infinite; }
+.fx-olive-l { transform-origin: 20px 470px;  animation: oliveSwayL 6.5s ease-in-out infinite; }
+@keyframes oliveSwayR { 0%,100% { transform: rotate(0deg) translateX(0); } 50% { transform: rotate(.9deg) translateX(3px); } }
+@keyframes oliveSwayL { 0%,100% { transform: rotate(0deg); } 50% { transform: rotate(-.8deg) translateY(2px); } }
+
 /* 3. liseré doré : reflet qui tourne lentement */
 .fx-ring { transform-origin: 500px 500px; transform-box: view-box; animation: ringTurn 14s linear infinite; opacity: .9; }
 @keyframes ringTurn { to { transform: rotate(360deg); } }
 
-@media (prefers-reduced-motion: reduce) { .fx-sun, .fx-sweep, .fx-ring { animation: none; } .fx-sweep { opacity: 0; } }
+@media (prefers-reduced-motion: reduce) { .fx-sun, .fx-sweep, .fx-ring, .fx-olive { animation: none; } .fx-sweep { opacity: 0; } }
 .visually-hidden {
   position: absolute; width: 1px; height: 1px; overflow: hidden;
   clip: rect(0 0 0 0); white-space: nowrap;

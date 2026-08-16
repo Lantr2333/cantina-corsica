@@ -30,6 +30,19 @@
       <div class="logo-hero" role="img" aria-label="Logo A Cantina di Corsica — produits du terroir corse">
         <img class="logo-img" src="assets/logo-cantina.webp" alt="" decoding="async">
         <!-- Couches d'animation (le logo lui-même ne bouge jamais) -->
+        <svg class="logo-olive" viewBox="0 0 1000 1000" aria-hidden="true">
+          <defs>
+            <!-- zones feuillage (rameau haut-droit / rameau bas-gauche) -->
+            <clipPath id="oliveRightClip"><path d="M 655 55 Q 760 25 870 70 Q 930 110 950 190 L 905 205 Q 850 235 800 220 Q 745 210 700 195 Q 665 150 655 55 Z M 905 205 Q 960 260 965 360 Q 950 420 915 470 Q 880 440 870 380 Q 875 300 905 205 Z"/></clipPath>
+            <clipPath id="oliveLeftClip"><path d="M 25 385 Q 80 365 128 415 Q 132 460 110 490 Q 70 500 30 480 Z"/></clipPath>
+          </defs>
+            <g clip-path="url(#oliveRightClip)">
+              <image class="fx-olive fx-olive-r" href="assets/logo-cantina.webp" x="0" y="0" width="1000" height="1000" preserveAspectRatio="none"/>
+            </g>
+            <g clip-path="url(#oliveLeftClip)">
+              <image class="fx-olive fx-olive-l" href="assets/logo-cantina.webp" x="0" y="0" width="1000" height="1000" preserveAspectRatio="none"/>
+            </g>
+        </svg>
         <svg class="logo-fx" viewBox="0 0 1000 1000" aria-hidden="true">
           <defs>
             <radialGradient id="sunGlow" cx="0.5" cy="0.5" r="0.5">
